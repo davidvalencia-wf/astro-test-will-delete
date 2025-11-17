@@ -6,7 +6,7 @@ import preact from "@astrojs/preact";
 // https://astro.build/config
 export default defineConfig({
   base: "/app",
-  output: "static",
+  output: "server",
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
