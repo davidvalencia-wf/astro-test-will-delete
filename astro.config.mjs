@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import cloudflare from "@astrojs/cloudflare"; // Import the Cloudflare adapter
-import preact from "@astrojs/preact";
+import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,5 +16,14 @@ export default defineConfig({
     assetsPrefix: "/app",
   },
   site: "https://www.raymondcamden.com",
-  integrations: [preact()],
+  integrations: [react()],
+  vite: {
+    resolve: {
+    // Use react-dom/server.edge instead of react-dom/server.browser for React 19.
+    // Without this, MessageChannel from node:worker_threads needs to be polyfilled.
+    alias: import.meta.env.PROD ? {
+        "react-dom/server": "react-dom/server.edge",
+    } : undefined,
+    },
+}
 });
